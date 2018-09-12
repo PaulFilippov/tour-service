@@ -1,4 +1,4 @@
-package com.paul.models;
+package com.paul.entities;
 
 import javax.persistence.*;
 import java.util.HashSet;

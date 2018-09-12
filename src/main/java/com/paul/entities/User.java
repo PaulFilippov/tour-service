@@ -1,13 +1,10 @@
-package com.paul.models;
+package com.paul.entities;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -17,16 +14,20 @@ public class User implements UserDetails {
     private Long id;
     private String first_name;
     private String last_name;
+    //@Column(unique = true)
     private String email;
     private String password;
     private boolean active;
     private Long birthday;
+    @Enumerated(EnumType.STRING)
+    @Column(columnDefinition="enum('USER')")
+    private UserRole authorities;
     @ManyToMany
     Set<Order> orders;
 
     public User() { }
 
-    public User(String first_name, String last_name, String email, String password, boolean active, Long birthday) {
+    public User(String first_name, String last_name, String email, String password, boolean active, Long birthday, UserRole authorities) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.email = email;
@@ -34,6 +35,7 @@ public class User implements UserDetails {
         this.active = active;
         this.birthday = birthday;
         this.orders = new HashSet<>();
+        this.authorities=authorities;
     }
 
     public Long getId() {
@@ -88,6 +90,9 @@ public class User implements UserDetails {
         this.birthday = birthday;
     }
 
+    public void setAuthorities(UserRole authorities) {
+        this.authorities = authorities;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -106,31 +111,33 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List <UserRole> authority = new ArrayList<UserRole>();
+        authority.add(this.authorities);
+        return authority;
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return this.email;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return this.active;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return this.active;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return this.active;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return this.active;
     }
 }

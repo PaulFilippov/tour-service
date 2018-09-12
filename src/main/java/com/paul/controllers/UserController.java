@@ -1,8 +1,7 @@
 package com.paul.controllers;
 
-import com.paul.models.User;
+import com.paul.entities.User;
 import com.paul.repositories.UserRepository;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 

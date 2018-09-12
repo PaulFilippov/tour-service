@@ -1,7 +1,6 @@
 package com.paul.controllers;
 
-import com.paul.models.Order;
-import com.paul.models.Tour;
+import com.paul.entities.Order;
 import com.paul.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;

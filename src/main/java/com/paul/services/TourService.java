@@ -1,12 +1,11 @@
 package com.paul.services;
 
-import com.paul.models.Tour;
+import com.paul.entities.Tour;
 import com.paul.repositories.TourRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 @Service

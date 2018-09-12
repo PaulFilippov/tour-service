@@ -1,6 +1,6 @@
 package com.paul.services;
 
-import com.paul.models.Order;
+import com.paul.entities.Order;
 import com.paul.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

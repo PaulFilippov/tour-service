@@ -1,7 +1,8 @@
 package com.paul;
 
-import com.paul.models.Tour;
-import com.paul.models.User;
+import com.paul.entities.Tour;
+import com.paul.entities.User;
+import com.paul.entities.UserRole;
 import com.paul.repositories.TourRepository;
 import com.paul.repositories.UserRepository;
 import org.springframework.boot.ApplicationArguments;
@@ -32,10 +33,11 @@ public class DataLoader implements ApplicationRunner {
                 User temp = new User(
                         "admin",
                         "admin",
-                        "email",
+                        "myemail",
                         "admin",
                         true,
-                        10L
+                        10L,
+                        UserRole.USER
                 );
                 userRepository.save(temp);
                 continue;
@@ -44,10 +46,11 @@ public class DataLoader implements ApplicationRunner {
             User temp = new User(
                     "name" + Integer.toString(i),
                     "last_name",
-                    "email",
+                    "email"+ Integer.toString(i),
                     "password",
                     true,
-                    10L
+                    10L,
+                    UserRole.USER
             );
             userRepository.save(temp);
         }

@@ -35,32 +35,23 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
-        @Autowired
-        public void configGlobal(AuthenticationManagerBuilder auth) throws Exception {
-            auth.inMemoryAuthentication().passwordEncoder(NoOpPasswordEncoder.getInstance())
-            .withUser("user1")
-                    .password("1")
-                    .roles("USER")
-                    .and()
-                    .withUser("user2")
-                    .password("1")
-                    .roles("USER");
-        }
+    @Autowired
+    UserService userService;
 
+    @Autowired
+    public void configGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+                .userDetailsService(userService)
+                .passwordEncoder(NoOpPasswordEncoder.getInstance());
 
-//        /*init () Cоздает в памяти хранилище пользователей с единственным пользователем.
-//        Этому пользователю дано имя "user", пароль "password" и роль "ROLE".*/
-//    @Configuration
-//    protected static class AuthenticationConfiguration extends
-//            GlobalAuthenticationConfigurerAdapter {
-//
-//        /*init () Cоздает в памяти хранилище пользователей с единственным пользователем.
-//        Этому пользователю дано имя "user", пароль "password" и роль "ROLE".*/
-//
-//        @Override
-//        public void init(AuthenticationManagerBuilder auth) throws Exception {
+    }
+
+//    //        /*init () Cоздает в памяти хранилище пользователей с единственным пользователем.
+////        Этому пользователю дано имя "user", пароль "password" и роль "ROLE".*/
+//        @Autowired
+//        public void configGlobal(AuthenticationManagerBuilder auth) throws Exception {
 //            auth.inMemoryAuthentication().passwordEncoder(NoOpPasswordEncoder.getInstance())
-//                    .withUser("user1")
+//            .withUser("user1")
 //                    .password("1")
 //                    .roles("USER")
 //                    .and()
@@ -68,5 +59,5 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 //                    .password("1")
 //                    .roles("USER");
 //        }
-//    }
+
 }
