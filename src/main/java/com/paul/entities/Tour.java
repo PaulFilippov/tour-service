@@ -1,21 +1,22 @@
 package com.paul.entities;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Entity
 @Table(name = "tours")
 public class Tour {
     @Id
     @GeneratedValue
-    private Long id;
+    private Long id_tour;
     private String name;
     private String description;
     private String location;
-    private Long start_date;
-    private Long end_date;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date start_date;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date end_date;
     private Integer count_limit;
     @OneToMany
     Set<Order> orders;
@@ -23,7 +24,7 @@ public class Tour {
     public Tour() {
     }
 
-    public Tour(String name, String description, String location, Long start_date, Long end_date, Integer count_limit) {
+    public Tour(String name, String description, String location, Date start_date, Date end_date, Integer count_limit) {
         this.name = name;
         this.description = description;
         this.location = location;
@@ -33,10 +34,10 @@ public class Tour {
         this.orders = new HashSet<>();
     }
 
-    public Long getId() {
-        return id;
-    }
 
+    public Long getId_tour() {
+        return id_tour;
+    }
 
     public String getName() {
         return name;
@@ -62,19 +63,19 @@ public class Tour {
         this.location = location;
     }
 
-    public Long getStart_date() {
+    public Date getStart_date() {
         return start_date;
     }
 
-    public void setStart_date(Long start_date) {
+    public void setStart_date(Date start_date) {
         this.start_date = start_date;
     }
 
-    public Long getEnd_date() {
+    public Date getEnd_date() {
         return end_date;
     }
 
-    public void setEnd_date(Long end_date) {
+    public void setEnd_date(Date end_date) {
         this.end_date = end_date;
     }
 
@@ -92,12 +93,26 @@ public class Tour {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Tour tour = (Tour) o;
-        return Objects.equals(id, tour.id) &&
+        return Objects.equals(id_tour, tour.id_tour) &&
                 Objects.equals(name, tour.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(id_tour, name);
+    }
+
+    @Override
+    public String toString() {
+        return "Tour{" +
+                "id_tour=" + id_tour +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", location='" + location + '\'' +
+                ", start_date=" + start_date +
+                ", end_date=" + end_date +
+                ", count_limit=" + count_limit +
+                ", orders=" + orders +
+                '}';
     }
 }

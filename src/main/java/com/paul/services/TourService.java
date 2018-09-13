@@ -5,10 +5,12 @@ import com.paul.repositories.TourRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Set;
 
 @Service
+@Transactional
 public class TourService {
 
     @Autowired
@@ -20,10 +22,6 @@ public class TourService {
         //cast from Iterable in Set
         tourRep.findAll().iterator().forEachRemaining(allTours::add);
         return allTours;
-    }
-
-    public void addTour(Tour tour) {
-        tourRep.save(tour);
     }
 
     public Tour getTourById(Long tourId) {

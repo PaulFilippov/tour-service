@@ -11,7 +11,7 @@ import java.util.*;
 public class User implements UserDetails {
     @Id
     @GeneratedValue
-    private Long id;
+    private Long id_user;
     private String first_name;
     private String last_name;
     //@Column(unique = true)
@@ -38,8 +38,8 @@ public class User implements UserDetails {
         this.authorities=authorities;
     }
 
-    public Long getId() {
-        return id;
+    public Long getId_user() {
+        return id_user;
     }
 
     public String getFirst_name() {
@@ -95,17 +95,32 @@ public class User implements UserDetails {
     }
 
     @Override
+    public String toString() {
+        return "User{" +
+                "id_user=" + id_user +
+                ", first_name='" + first_name + '\'' +
+                ", last_name='" + last_name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", active=" + active +
+                ", birthday=" + birthday +
+                ", authorities=" + authorities +
+                ", orders=" + orders +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) &&
+        return Objects.equals(id_user, user.id_user) &&
                 Objects.equals(last_name, user.last_name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, last_name);
+        return Objects.hash(id_user, last_name);
     }
 
 

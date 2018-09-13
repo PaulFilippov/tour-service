@@ -5,15 +5,21 @@ import com.paul.entities.User;
 import com.paul.entities.UserRole;
 import com.paul.repositories.TourRepository;
 import com.paul.repositories.UserRepository;
+import com.paul.services.UserService;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 
 @Component
 public class DataLoader implements ApplicationRunner {
 
     private UserRepository userRepository;
     private TourRepository tourRepository;
+    private UserService userService = new UserService();
 //    private OrderRepository orderRepository;
 
     public DataLoader(UserRepository userRepository, TourRepository tourRepository) {
@@ -55,13 +61,26 @@ public class DataLoader implements ApplicationRunner {
             userRepository.save(temp);
         }
 
+        Date dt_start = new Date();
+        Date dt_end = new Date();
+
         for (int i = 10; i < 10 + 10; i++) {
+
+            Calendar c = Calendar.getInstance();
+            c.setTime(dt_start);
+            c.add(Calendar.MONTH, 1);
+            dt_start = c.getTime();
+            c.add(Calendar.DATE, 10);
+            dt_end=c.getTime();
+
+
+
             Tour temp_order = new Tour(
                     "name" + Integer.toString(i),
                     "descrition" + Integer.toString(i),
                     "location" + Integer.toString(i),
-                    200L,
-                    200L,
+                    dt_start,
+                    dt_end,
                     20
             );
             tourRepository.save(temp_order);

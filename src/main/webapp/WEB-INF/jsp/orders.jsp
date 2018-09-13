@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8" />
 
-    <title>Tours List</title>
+    <title>Orders</title>
 
     <link href="/resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="/resources/css/main.css" rel="stylesheet">
@@ -25,13 +25,10 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li >
-                            <a href="/allService">Туры</a>
+                            <a href="/tours">Туры</a>
                         </li>
                         <li>
-                            <a href="/allProduct">Заказы</a>
-                        </li>
-                        <li>
-                            <a href="/allMaterial">Профиль</a>
+                            <a href="/orders">Заказы</a>
                         </li>
                     </ul>
 
@@ -42,8 +39,8 @@
                         </li>
 
                         <li>
-                            <a href="${pageContext.request.logout()}" type="button" class="btn btn-danger btn-xs">Выйти</a>
-                        </li>>
+                            <a href="<c:url value="/logout" />" type="button" class="btn btn-danger btn-xs">Выйти</a>
+                        </li>
                     </ul>
 
                 </div>
@@ -79,17 +76,11 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${allTours}" var="allTours">
+                <c:forEach items="${userOrders}" var="userOrders">
                     <tr>
-                        <td>${allTours.name}</td>
-                        <td>${allTours.description}</td>
-                        <td>${allTours.location}</td>
-                        <td>${allTours.start_date}</td>
-                        <td>${allTours.end_date}</td>
-                        <td>${allTours.count_limit}</td>
+                        <td>${userOrders.id_order}</td>
                         <td>
-                            <a href="/changeProduct/${products.id_product}" type="button" class="btn btn-primary btn-xs">Изменить</a>
-                            <a href="/deleteProduct/${products.id_product}" type="button" class="btn btn-danger btn-xs">Удалить</a>
+                            <a href="/deleteOrder/${products.id_order}" type="button" class="btn btn-danger btn-xs">Удалить</a>
                         </td>
                     </tr>
                 </c:forEach>

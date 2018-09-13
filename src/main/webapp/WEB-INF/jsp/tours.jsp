@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf8" pageEncoding="utf8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="false"%>
 
 <!DOCTYPE HTML>
@@ -7,7 +8,7 @@
 <head>
     <meta charset="UTF-8" />
 
-    <title>Tours List</title>
+    <title>Tours</title>
 
     <link href="/resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="/resources/css/main.css" rel="stylesheet">
@@ -25,13 +26,10 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li >
-                            <a href="/allService">Туры</a>
+                            <a href="/tours">Туры</a>
                         </li>
                         <li>
-                            <a href="/allProduct">Заказы</a>
-                        </li>
-                        <li>
-                            <a href="/allMaterial">Профиль</a>
+                            <a href="/orders">Заказы</a>
                         </li>
                     </ul>
 
@@ -43,8 +41,7 @@
 
                         <li>
                             <a href="<c:url value="/logout" />" type="button" class="btn btn-danger btn-xs">Выйти</a>
-                            <%--<a href="${pageContext.request.logout()}" type="button" class="btn btn-danger btn-xs">Выйти</a>--%>
-                        </li>>
+                        </li>
                     </ul>
 
                 </div>
@@ -70,42 +67,33 @@
             <table class="table table-striped table-hover">
                 <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Location</th>
-                    <th>Start_date</th>
-                    <th>End_date</th>
-                    <th>Count_limit</th>
+                    <th>Название</th>
+                    <th>Описание</th>
+                    <th>Место</th>
+                    <th>Дата начала</th>
+                    <th>Дата окончания</th>
+                    <th>Количество мест</th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody>
                 <c:forEach items="${allTours}" var="allTours">
                     <tr>
+                        <td>${allTours.id_tour}</td>
                         <td>${allTours.name}</td>
                         <td>${allTours.description}</td>
                         <td>${allTours.location}</td>
-                        <td>${allTours.start_date}</td>
-                        <td>${allTours.end_date}</td>
+                        <td><fmt:formatDate value="${allTours.start_date}" pattern="dd.MM.yyyy"/></td>
+                        <td><fmt:formatDate value="${allTours.end_date}" pattern="dd.MM.yyyy"/></td>
                         <td>${allTours.count_limit}</td>
                         <td>
-                            <a href="/changeProduct/${products.id_product}" type="button" class="btn btn-primary btn-xs">Изменить</a>
-                            <a href="/deleteProduct/${products.id_product}" type="button" class="btn btn-danger btn-xs">Удалить</a>
+                            <a href="/orderTourByUser/${allTours.id_tour}" type="button" class="btn btn-primary btn-xs">Забронировать</a>
                         </td>
                     </tr>
                 </c:forEach>
                 </tbody>
             </table>
 
-            <div class="text-center">
-                <ul class="pagination">
-                    <li class="disabled"><span>«</span></li>
-                    <li class="active"><span>1</span></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">»</a></li>
-                </ul>
-            </div>
         </div>
     </div>
 </div>
