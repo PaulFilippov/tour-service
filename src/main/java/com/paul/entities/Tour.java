@@ -18,8 +18,8 @@ public class Tour {
     @Temporal(TemporalType.TIMESTAMP)
     private Date end_date;
     private Integer count_limit;
-    @OneToMany
-    Set<Order> orders;
+    @OneToMany(mappedBy = "tour", fetch = FetchType.EAGER)
+    Set<Order> ordersOfTour;
 
     public Tour() {
     }
@@ -31,7 +31,7 @@ public class Tour {
         this.start_date = start_date;
         this.end_date = end_date;
         this.count_limit = count_limit;
-        this.orders = new HashSet<>();
+        this.ordersOfTour = new HashSet<>();
     }
 
 
@@ -112,7 +112,7 @@ public class Tour {
                 ", start_date=" + start_date +
                 ", end_date=" + end_date +
                 ", count_limit=" + count_limit +
-                ", orders=" + orders +
+                ", ordersOfTour=" + ordersOfTour +
                 '}';
     }
 }

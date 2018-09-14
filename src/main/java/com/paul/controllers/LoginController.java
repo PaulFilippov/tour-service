@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class LoginController {
 
-
+    public LoginController() {
+    }
 
     @GetMapping(value = { "/", "/login" })
     public String showLoginPage(Model model) {

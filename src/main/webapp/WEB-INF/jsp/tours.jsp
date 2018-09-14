@@ -21,7 +21,7 @@
         <div class="col-md-12">
             <nav class="navbar navbar-inverse" role="navigation">
                 <div class="navbar-header">
-                    </button> <a class="navbar-brand active" href="/mainLogin">TourService</a>
+                    </button> <a class="navbar-brand active">TourService</a>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
@@ -49,15 +49,15 @@
 
             <div class="row">
                 <h3 class="col-md-12 text-center">
-                    Товары
+                    Список туров
                 </h3>
             </div>
 
-            <div class="row">
-                <div class="col-md-2 btn-group-vertical-left">
-                    <a href="/addProduct" type="button" class="btn btn-success">Добавить</a>
-                </div>
-            </div>
+            <%--<div class="row">--%>
+                <%--<div class="col-md-2 btn-group-vertical-left">--%>
+                    <%--<a href="/addProduct" type="button" class="btn btn-success">Добавить</a>--%>
+                <%--</div>--%>
+            <%--</div>--%>
 
         </div>
     </div>
@@ -79,7 +79,6 @@
                 <tbody>
                 <c:forEach items="${allTours}" var="allTours">
                     <tr>
-                        <td>${allTours.id_tour}</td>
                         <td>${allTours.name}</td>
                         <td>${allTours.description}</td>
                         <td>${allTours.location}</td>

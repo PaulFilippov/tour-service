@@ -11,21 +11,22 @@ public class Order {
     @Id
     @GeneratedValue
     private Long id_order;
-    @ManyToOne
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_tour")
     private Tour tour;
     private boolean confirmed;
-    @ManyToMany
-    Set<User> users;
+    @ManyToMany(mappedBy = "userOrders")
+    Set<User> usersOfOrder;
 
     public Order() {
     }
 
     public Order(User user, Tour tour) {
-        this.users = new HashSet<>();
-        this.users.add(user);
+        this.usersOfOrder = new HashSet<>();
+        this.usersOfOrder.add(user);
         this.tour = tour;
-        user.orders.add(this);
-        tour.orders.add(this);
+        user.userOrders.add(this);
+        tour.ordersOfTour.add(this);
     }
 
     public Long getId_order() {
@@ -42,7 +43,7 @@ public class Order {
                 "id_order=" + id_order +
                 ", tour=" + tour +
                 ", confirmed=" + confirmed +
-                ", users=" + users +
+                ", usersOfOrder=" + usersOfOrder +
                 '}';
     }
 

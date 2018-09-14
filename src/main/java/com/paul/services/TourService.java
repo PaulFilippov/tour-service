@@ -13,8 +13,13 @@ import java.util.Set;
 @Transactional
 public class TourService {
 
-    @Autowired
+//    @Autowired
     private TourRepository tourRep;
+
+    @Autowired
+    public TourService(TourRepository tourRep) {
+        this.tourRep = tourRep;
+    }
 
     public Set<Tour> getAllTour()
     {

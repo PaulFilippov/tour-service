@@ -20,7 +20,7 @@
         <div class="col-md-12">
             <nav class="navbar navbar-inverse" role="navigation">
                 <div class="navbar-header">
-                    </button> <a class="navbar-brand active" href="/mainLogin">Tour Service</a>
+                    </button> <a class="navbar-brand active">Tour Service</a>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
@@ -48,15 +48,15 @@
 
             <div class="row">
                 <h3 class="col-md-12 text-center">
-                    Товары
+                    Заявки в туры
                 </h3>
             </div>
 
-            <div class="row">
-                <div class="col-md-2 btn-group-vertical-left">
-                    <a href="/addProduct" type="button" class="btn btn-success">Добавить</a>
-                </div>
-            </div>
+            <%--<div class="row">--%>
+                <%--<div class="col-md-2 btn-group-vertical-left">--%>
+                    <%--<a href="/addProduct" type="button" class="btn btn-success">Добавить</a>--%>
+                <%--</div>--%>
+            <%--</div>--%>
 
         </div>
     </div>
@@ -80,7 +80,7 @@
                     <tr>
                         <td>${userOrders.id_order}</td>
                         <td>
-                            <a href="/deleteOrder/${products.id_order}" type="button" class="btn btn-danger btn-xs">Удалить</a>
+                            <a href="/deleteOrder/${userOrders.id_order}" type="button" class="btn btn-danger btn-xs">Удалить</a>
                         </td>
                     </tr>
                 </c:forEach>

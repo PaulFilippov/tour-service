@@ -16,28 +16,40 @@ import java.util.Set;
 @Controller
 public class TourController {
 
-    @Autowired
+//    @Autowired
+//    private TourService tourService;
+////    @Autowired
+////    private OrderService orderService;
+////    @Autowired
+////    private UserService userService;
+
     private TourService tourService;
-    private OrderService orderService = new OrderService();
-    private UserService userService = new UserService();
+    private OrderService orderService;
+    private UserService userService;
+
+    @Autowired
+    public TourController(TourService tourService, OrderService orderService, UserService userService) {
+        this.tourService = tourService;
+        this.orderService = orderService;
+        this.userService = userService;
+    }
 
     @GetMapping(value = "/tours")
     public String showAllTours(ModelMap model) {
-        Set <Tour> allTours = tourService.getAllTour();
+        Set<Tour> allTours = tourService.getAllTour();
         model.addAttribute("allTours", allTours);
-        System.out.println("Все туры: "+tourService.getAllTour()+"/n");
+        // System.out.println("Все туры: "+tourService.getAllTour()+"/n");
         return "tours";
     }
 
     //добавить выбранный тур в заказы текущего юзера
     @GetMapping(value = "/orderTourByUser/{id_tour}")
-    public void addTourToUser(@PathVariable("id_tour") Long id_tour, ModelMap model) {
+    public String addTourToUser(@PathVariable("id_tour") Long id_tour) {
         Tour selectedTour = tourService.getTourById(id_tour);
-        System.out.println("Инфа тура по айди"+ selectedTour);
+        //System.out.println("Инфа тура по айди"+ selectedTour);
         orderService.createNewOrderForCurrAuthUser(selectedTour);
-        showAllTours(model);
+        return "redirect:/tours";
     }
-
 
 
 }

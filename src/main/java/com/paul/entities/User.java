@@ -18,23 +18,26 @@ public class User implements UserDetails {
     private String email;
     private String password;
     private boolean active;
-    private Long birthday;
+    private Date birthday;
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition="enum('USER')")
     private UserRole authorities;
-    @ManyToMany
-    Set<Order> orders;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "users_orders",
+            joinColumns = @JoinColumn(name = "id_user"),
+            inverseJoinColumns = @JoinColumn(name = "id_order"))
+    Set<Order> userOrders;
 
     public User() { }
 
-    public User(String first_name, String last_name, String email, String password, boolean active, Long birthday, UserRole authorities) {
+    public User(String first_name, String last_name, String email, String password, boolean active, Date birthday, UserRole authorities) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.email = email;
         this.password = password;
         this.active = active;
         this.birthday = birthday;
-        this.orders = new HashSet<>();
+        this.userOrders = new HashSet<>();
         this.authorities=authorities;
     }
 
@@ -66,6 +69,7 @@ public class User implements UserDetails {
         this.email = email;
     }
 
+    @Override
     public String getPassword() {
         return password;
     }
@@ -82,16 +86,24 @@ public class User implements UserDetails {
         this.active = active;
     }
 
-    public Long getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Long birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 
     public void setAuthorities(UserRole authorities) {
         this.authorities = authorities;
+    }
+
+    public Set<Order> getUserOrders() {
+        return userOrders;
+    }
+
+    public void setUserOrders(Set<Order> userOrders) {
+        this.userOrders = userOrders;
     }
 
     @Override
@@ -105,7 +117,7 @@ public class User implements UserDetails {
                 ", active=" + active +
                 ", birthday=" + birthday +
                 ", authorities=" + authorities +
-                ", orders=" + orders +
+                ", userOrders=" + userOrders +
                 '}';
     }
 

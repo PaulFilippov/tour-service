@@ -17,17 +17,32 @@ public class OrderService {
 
     @Autowired
     OrderRepository orderRep;
+//    @Autowired
+//    UserService userService;
+//    @Autowired
+//    TourService tourService;
 
-    UserService userService = new UserService();
-    TourService tourService = new TourService();
+    private TourService tourService;
+    private UserService userService;
 
+    @Autowired
+    public OrderService(UserService userService, TourService tourService) {
+        this.userService = userService;
+        this.tourService = tourService;
+    }
 
-    public Set<Order> getAllOrder()
-    {
+    public Set<Order> getAllOrder() {
         Set<Order> allOrder = new HashSet();
         //cast from Iterable in Set
         orderRep.findAll().iterator().forEachRemaining(allOrder::add);
         return allOrder;
+    }
+
+    public Set<Order> getUserOrders() {
+        Set<Order> userOrders = new HashSet();
+        //cast from Iterable in Set
+        orderRep.findAll().iterator().forEachRemaining(userOrders::add);
+        return userOrders;
     }
 
     // создание нового заказанного тура для текущегор авторизованого юзера
@@ -37,12 +52,8 @@ public class OrderService {
         orderRep.save(order);
     }
 
-
-    public Set<Order> getUserOrders() {
-        Set<Order> userOrders = new HashSet();
-        //cast from Iterable in Set
-        orderRep.findAll().iterator().forEachRemaining(userOrders::add);
-        return userOrders;
-    }
+    public void deleteUserOrder (Long id_order) {
+        orderRep.deleteById(id_order);
+        }
 
 }
