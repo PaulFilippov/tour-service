@@ -3,22 +3,23 @@ package com.paul.entities;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "tours")
 public class Tour {
     @Id
-    @GeneratedValue
+    @GeneratedValue (strategy = GenerationType.AUTO)
     private Long id_tour;
     private String name;
     private String description;
     private String location;
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date start_date;
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date end_date;
     private Integer count_limit;
-    @OneToMany(mappedBy = "tour", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "tour")
     Set<Order> ordersOfTour;
 
     public Tour() {
@@ -33,7 +34,6 @@ public class Tour {
         this.count_limit = count_limit;
         this.ordersOfTour = new HashSet<>();
     }
-
 
     public Long getId_tour() {
         return id_tour;
@@ -87,6 +87,10 @@ public class Tour {
         this.count_limit = count_limit;
     }
 
+    public Set<Order> getOrdersOfTour() {
+        return ordersOfTour;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -101,6 +105,7 @@ public class Tour {
     public int hashCode() {
         return Objects.hash(id_tour, name);
     }
+
 
     @Override
     public String toString() {

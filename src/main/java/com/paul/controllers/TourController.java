@@ -1,7 +1,7 @@
 package com.paul.controllers;
 
-import com.paul.entities.Order;
 import com.paul.entities.Tour;
+import com.paul.entities.User;
 import com.paul.services.OrderService;
 import com.paul.services.TourService;
 import com.paul.services.UserService;
@@ -15,13 +15,6 @@ import java.util.Set;
 
 @Controller
 public class TourController {
-
-//    @Autowired
-//    private TourService tourService;
-////    @Autowired
-////    private OrderService orderService;
-////    @Autowired
-////    private UserService userService;
 
     private TourService tourService;
     private OrderService orderService;
@@ -37,8 +30,10 @@ public class TourController {
     @GetMapping(value = "/tours")
     public String showAllTours(ModelMap model) {
         Set<Tour> allTours = tourService.getAllTour();
+        User curUser=userService.getCurAuthUser();
         model.addAttribute("allTours", allTours);
-        // System.out.println("Все туры: "+tourService.getAllTour()+"/n");
+        model.addAttribute("tourService", tourService);
+        model.addAttribute("curUser", curUser);
         return "tours";
     }
 
@@ -46,10 +41,10 @@ public class TourController {
     @GetMapping(value = "/orderTourByUser/{id_tour}")
     public String addTourToUser(@PathVariable("id_tour") Long id_tour) {
         Tour selectedTour = tourService.getTourById(id_tour);
-        //System.out.println("Инфа тура по айди"+ selectedTour);
         orderService.createNewOrderForCurrAuthUser(selectedTour);
         return "redirect:/tours";
     }
+
 
 
 }

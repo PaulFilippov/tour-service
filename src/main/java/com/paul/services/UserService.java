@@ -23,9 +23,7 @@ import java.util.Set;
 @Transactional
 public class UserService implements UserDetailsService {
 
-//    @Autowired
     UserRepository userRepository;
-
 
     @Autowired
     public UserService(UserRepository userRepository) {
@@ -45,7 +43,6 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user =  userRepository.findUserByEmail(email).orElseThrow(() ->
                 new UsernameNotFoundException("user with email " + email + " not found"));
-        System.out.println("Данные юзера из loadUserByUsername "+ user);
         return user;
     }
 
@@ -53,35 +50,21 @@ public class UserService implements UserDetailsService {
     public String getCurUserEmail() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String emailCurrentAuthUser=auth.getName();
-        System.out.println("Емайл текущего авторизованного юзера " + emailCurrentAuthUser);
         return emailCurrentAuthUser;
     }
 
-    public void updateUserPforile (User user){
-        userRepository.updateUserProfile(user.getId_user(),
-                user.getFirst_name(),
-                user.getLast_name(),
-                (Data) user.getBirthday());
+    public void saveUserProf (User user){
+        userRepository.save(user);
     }
+
 
     //возвращает из базы сущность авторизованного юзера (ищется по email)
     public User getCurAuthUser () throws NullPointerException {
         String emailCurAuthUser = getCurUserEmail();
-        System.out.println("1getCurAuthUser "+ emailCurAuthUser);
-
-
-//        Iterable <User> user = userRepository.findAll();
-//       List<User> set = new ArrayList();
-//        for (User item: user)
-//            set.add(item);
-
         User user = userRepository.findUserByEmail(emailCurAuthUser)
                     .orElseThrow(() ->
                     new UsernameNotFoundException("user with email " + emailCurAuthUser + " not found"));
-
-        System.out.println("2getCurAuthUser "+ emailCurAuthUser);
         return user;
-//        return set.get(2);
     }
 
 

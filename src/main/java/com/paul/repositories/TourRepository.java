@@ -9,6 +9,4 @@ import javax.transaction.Transactional;
 @Repository
 public interface TourRepository extends CrudRepository<Tour, Long> {
 
-
-
 }

@@ -9,9 +9,9 @@ import java.util.Set;
 @Table(name = "orders")
 public class Order {
     @Id
-    @GeneratedValue
+    @GeneratedValue (strategy = GenerationType.AUTO)
     private Long id_order;
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "id_tour")
     private Tour tour;
     private boolean confirmed;
@@ -31,6 +31,18 @@ public class Order {
 
     public Long getId_order() {
         return id_order;
+    }
+
+    public Tour getTour() {
+        return tour;
+    }
+
+    public void setConfirmed(boolean confirmed) {
+        this.confirmed = confirmed;
+    }
+
+    public Set<User> getUsersOfOrder() {
+        return usersOfOrder;
     }
 
     public boolean isConfirmed() {
@@ -57,7 +69,6 @@ public class Order {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(id_order);
     }
 }

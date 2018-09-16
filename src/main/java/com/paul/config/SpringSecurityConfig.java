@@ -4,7 +4,6 @@ import com.paul.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.authentication.configuration.GlobalAuthenticationConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -25,15 +24,16 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/", "/login").permitAll()
+                .antMatchers("/resources/css/**").permitAll()
+                .antMatchers("/resources/fonts/**").permitAll()
+                .antMatchers("/resources/js/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().permitAll()
+                .formLogin().loginPage("/login").permitAll()
+                //.formLogin().permitAll()
                 .defaultSuccessUrl("/tours")
-                //.loginPage().permitAll()
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll();
-                //.logout().clearAuthentication(true);  //logout configuration
-
     }
 
     @Autowired
@@ -46,19 +46,5 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(NoOpPasswordEncoder.getInstance());
 
     }
-
-//    //        /*init () Cоздает в памяти хранилище пользователей с единственным пользователем.
-////        Этому пользователю дано имя "user", пароль "password" и роль "ROLE".*/
-//        @Autowired
-//        public void configGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//            auth.inMemoryAuthentication().passwordEncoder(NoOpPasswordEncoder.getInstance())
-//            .withUser("user1")
-//                    .password("1")
-//                    .roles("USER")
-//                    .and()
-//                    .withUser("user2")
-//                    .password("1")
-//                    .roles("USER");
-//        }
 
 }

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf8" pageEncoding="utf8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="false" %>
 
@@ -8,17 +8,16 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Tours</title>
-    <link href="/resources/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/resources/css/main.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/resources/css/main.css">
 </head>
-
 <body>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
             <nav class="navbar navbar-inverse" role="navigation">
                 <div class="navbar-header">
-                    </button> <a class="navbar-brand active">TourService</a>
+                    </button> <a class="navbar-brand active">Tour Service</a>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
@@ -41,12 +40,11 @@
             </nav>
             <div class="row">
                 <h3 class="col-md-12 text-center">
-                    Информация профиля ${user.email}
+                    Информация профиля: ${user.email}
                 </h3>
             </div>
         </div>
     </div>
-
     <div class="row">
         <div class="col-md-3">
         </div>
@@ -66,7 +64,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-xs-3" for="birth">Введите дату:</label>
+                    <label class="control-label col-xs-3" for="birth">Дата рождения:</label>
                     <div class="col-xs-9">
                         <input type="date" class="form-control" id="birth" name="birthday" value=${user.birthday}>
                     </div>
@@ -77,20 +75,6 @@
                         <input type="submit" class="btn btn-primary" value="Сохранить изменения">
                     </div>
                 </div>
-
-                <%--<fieldset>--%>
-                <%--<label for="first_name">Введите имя</label>--%>
-                <%--<input type="text" class="form-control " name="first_name" id="first_name" placeholder=""--%>
-                <%--value=${user.first_name}>--%>
-                <%--<label for="last_name">Введите фамилию</label>--%>
-                <%--<input type="text" class="form-control" name="last_name" id="last_name" placeholder=""--%>
-                <%--value=${user.last_name}>--%>
-                <%--<li>Почта: ${user.email}</li>--%>
-                <%--<label for="birthday">Введите дату рождения</label>--%>
-                <%--<input type="data" name="birthday" id="birthday" placeholder="" %>--%>
-                <%--<br>--%>
-                <%--<button type="submit" class="btn btn-success center-block">Сохранить</button>--%>
-                <%--</fieldset>--%>
             </form>
         </div>
         <div class="col-md-4">

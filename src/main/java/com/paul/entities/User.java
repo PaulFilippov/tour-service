@@ -10,25 +10,28 @@ import java.util.*;
 @Table(name = "users")
 public class User implements UserDetails {
     @Id
-    @GeneratedValue
+    @GeneratedValue (strategy = GenerationType.AUTO)
     private Long id_user;
     private String first_name;
     private String last_name;
-    //@Column(unique = true)
     private String email;
     private String password;
     private boolean active;
+    @Temporal(TemporalType.DATE)
     private Date birthday;
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition="enum('USER')")
     private UserRole authorities;
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    //было laze
+    @ManyToMany
     @JoinTable(name = "users_orders",
             joinColumns = @JoinColumn(name = "id_user"),
             inverseJoinColumns = @JoinColumn(name = "id_order"))
     Set<Order> userOrders;
 
-    public User() { }
+    public User() {
+
+    }
 
     public User(String first_name, String last_name, String email, String password, boolean active, Date birthday, UserRole authorities) {
         this.first_name = first_name;
