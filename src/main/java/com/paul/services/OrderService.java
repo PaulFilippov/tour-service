@@ -34,7 +34,6 @@ public class OrderService {
         return allOrder;
     }
 
-
     // создание нового заказанного тура для текущегор авторизованного юзера
     public void createNewOrderForCurrAuthUser(Tour tour) {
         User currUser = userService.getCurAuthUser();
@@ -42,15 +41,18 @@ public class OrderService {
         orderRep.save(order);
     }
 
-    public void deleteUserOrder(Long id_order) {
+    public Order getOrderById(Long id_order) {
+        return orderRep.findById(id_order).get();
+    }
+
+    public void deleteOrder(Long id_order) {
         orderRep.deleteById(id_order);
     }
 
-
     public Set<Order> getUserOrders(User user) {
-        Set <Order> userOrders = new HashSet();
-       userOrders = user.getUserOrders();
-       return userOrders;
+        Set<Order> userOrders = new HashSet();
+        userOrders = user.getUserOrders();
+        return userOrders;
     }
 
     //проверяет есть ли тур уже в заказе у юзера

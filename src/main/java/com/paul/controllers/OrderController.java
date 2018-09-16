@@ -15,9 +15,9 @@ import java.util.Set;
 @Controller
 public class OrderController {
 
-   OrderService orderService;
-   TourService tourService;
-   UserService userService;
+    OrderService orderService;
+    TourService tourService;
+    UserService userService;
 
     @Autowired
     public OrderController(OrderService orderService, TourService tourService, UserService userService) {
@@ -31,14 +31,14 @@ public class OrderController {
         Set<Order> userOrders = orderService.getUserOrders(userService.getCurAuthUser());
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("orders");
-        modelAndView.addObject("userOrders", userOrders );
-        modelAndView.addObject("tourService", tourService );
+        modelAndView.addObject("userOrders", userOrders);
+        modelAndView.addObject("tourService", tourService);
         return modelAndView;
     }
 
-    @GetMapping (value = "/deleteOrder/{id_order}")
-    public String deleteOrder (@PathVariable("id_order") Long id_order) {
-        orderService.deleteUserOrder(id_order);
+    @GetMapping(value = "/deleteOrder/{id_order}")
+    public String deleteOrder(@PathVariable("id_order") Long id_order) {
+        orderService.deleteOrder(id_order);
         return "redirect:/orders";
     }
 }

@@ -36,22 +36,24 @@ public class TourService {
     }
 
     //число свободных мест в туре
-    public int getNumberOfFreePlaces (Tour tour) {
+    public int getNumberOfFreePlaces(Tour tour) {
         int count_limit = tour.getCount_limit();
-        Set <Order> ordersOfTour = tour.getOrdersOfTour();
+        Set<Order> ordersOfTour = tour.getOrdersOfTour();
         int booked_places = ordersOfTour.size();
         int numberFreePlaces = count_limit - booked_places;
         return numberFreePlaces;
     }
 
     //проверка прошел ли уже тур
-    public boolean isPassedTour (Tour tour) {
+    public boolean isPassedTour(Tour tour) {
         Date currDate = new Date();
         Date startDate = tour.getStart_date();
         Date endDate = tour.getEnd_date();
         if (startDate.after(currDate) && endDate.after(currDate)) {
             return false;
-        } else {return true;}
+        } else {
+            return true;
+        }
     }
 
     //проверяет есть ли тур уже в заказе у юзера

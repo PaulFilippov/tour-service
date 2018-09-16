@@ -39,14 +39,11 @@ public class DataLoader implements ApplicationRunner {
     }
 
     public void run(ApplicationArguments args) {
-
         generateUsersInBD();
         generateToursInBD();
         generateOldToursInBD();
         generateOrdersForUsers();
-
     }
-
 
     public void generateUsersInBD() {
         Date dateBirth = new Date();
@@ -119,7 +116,7 @@ public class DataLoader implements ApplicationRunner {
     public void generateOrdersForUsers() {
         for (Long i = 0L; i < 10; i++) {
             int numOrders = 0;
-            for (Long j = i+20; j < 20 * 2; j++) {
+            for (Long j = i + 20; j < 20 * 2; j++) {
                 if (userRepository.findById(i).orElse(null) == null) {
                     break;
                 } else if (tourRepository.findById(j).orElse(null) == null) {
@@ -128,10 +125,12 @@ public class DataLoader implements ApplicationRunner {
                     //System.out.println("iiiii:"+i+" JJJJ:"+j);
                     User user = userRepository.findById(i).get();
                     Tour tour = tourRepository.findById(j).get();
-                    Order order = new Order (user,tour);
+                    Order order = new Order(user, tour);
                     orderRep.save(order);
                     numOrders++;
-                    if (numOrders==3) {break;}
+                    if (numOrders == 3) {
+                        break;
+                    }
                 }
             }
         }

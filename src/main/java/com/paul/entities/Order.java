@@ -9,13 +9,13 @@ import java.util.Set;
 @Table(name = "orders")
 public class Order {
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id_order;
-    @ManyToOne(optional = false)
+    @ManyToOne
     @JoinColumn(name = "id_tour")
     private Tour tour;
     private boolean confirmed;
-    @ManyToMany(mappedBy = "userOrders")
+    @OneToMany(mappedBy = "userOrders")
     Set<User> usersOfOrder;
 
     public Order() {

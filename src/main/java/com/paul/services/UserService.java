@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
 import java.util.*;
 
 import javax.transaction.Transactional;
@@ -31,8 +32,7 @@ public class UserService implements UserDetailsService {
     }
 
 
-    public Set<User> getAllUser()
-    {
+    public Set<User> getAllUser() {
         Set<User> allUser = new HashSet();
         //cast from Iterable in Set
         userRepository.findAll().iterator().forEachRemaining(allUser::add);
@@ -41,7 +41,7 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user =  userRepository.findUserByEmail(email).orElseThrow(() ->
+        User user = userRepository.findUserByEmail(email).orElseThrow(() ->
                 new UsernameNotFoundException("user with email " + email + " not found"));
         return user;
     }
@@ -49,21 +49,21 @@ public class UserService implements UserDetailsService {
     //возвращает email авторизованого юзера (email вводится в поле username в spring sec)
     public String getCurUserEmail() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String emailCurrentAuthUser=auth.getName();
+        String emailCurrentAuthUser = auth.getName();
         return emailCurrentAuthUser;
     }
 
-    public void saveUserProf (User user){
+    public void saveUserProf(User user) {
         userRepository.save(user);
     }
 
 
     //возвращает из базы сущность авторизованного юзера (ищется по email)
-    public User getCurAuthUser () throws NullPointerException {
+    public User getCurAuthUser() throws NullPointerException {
         String emailCurAuthUser = getCurUserEmail();
         User user = userRepository.findUserByEmail(emailCurAuthUser)
-                    .orElseThrow(() ->
-                    new UsernameNotFoundException("user with email " + emailCurAuthUser + " not found"));
+                .orElseThrow(() ->
+                        new UsernameNotFoundException("user with email " + emailCurAuthUser + " not found"));
         return user;
     }
 

@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 @Table(name = "tours")
 public class Tour {
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id_tour;
     private String name;
     private String description;
@@ -19,7 +19,7 @@ public class Tour {
     @Temporal(TemporalType.DATE)
     private Date end_date;
     private Integer count_limit;
-    @OneToMany(mappedBy = "tour")
+    @OneToMany(mappedBy = "tour", cascade = CascadeType.ALL)
     Set<Order> ordersOfTour;
 
     public Tour() {

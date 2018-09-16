@@ -30,7 +30,7 @@ public class TourController {
     @GetMapping(value = "/tours")
     public String showAllTours(ModelMap model) {
         Set<Tour> allTours = tourService.getAllTour();
-        User curUser=userService.getCurAuthUser();
+        User curUser = userService.getCurAuthUser();
         model.addAttribute("allTours", allTours);
         model.addAttribute("tourService", tourService);
         model.addAttribute("curUser", curUser);
@@ -44,7 +44,6 @@ public class TourController {
         orderService.createNewOrderForCurrAuthUser(selectedTour);
         return "redirect:/tours";
     }
-
 
 
 }

@@ -2,7 +2,7 @@ package com.paul.entities;
 
 import org.springframework.security.core.GrantedAuthority;
 
-public enum UserRole implements GrantedAuthority{
+public enum UserRole implements GrantedAuthority {
 
     USER;
 

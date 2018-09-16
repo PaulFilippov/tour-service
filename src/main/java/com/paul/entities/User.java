@@ -10,7 +10,7 @@ import java.util.*;
 @Table(name = "users")
 public class User implements UserDetails {
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id_user;
     private String first_name;
     private String last_name;
@@ -20,13 +20,10 @@ public class User implements UserDetails {
     @Temporal(TemporalType.DATE)
     private Date birthday;
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition="enum('USER')")
+    @Column(columnDefinition = "enum('USER')")
     private UserRole authorities;
-    //было laze
-    @ManyToMany
-    @JoinTable(name = "users_orders",
-            joinColumns = @JoinColumn(name = "id_user"),
-            inverseJoinColumns = @JoinColumn(name = "id_order"))
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_user")
     Set<Order> userOrders;
 
     public User() {
@@ -41,7 +38,7 @@ public class User implements UserDetails {
         this.active = active;
         this.birthday = birthday;
         this.userOrders = new HashSet<>();
-        this.authorities=authorities;
+        this.authorities = authorities;
     }
 
     public Long getId_user() {
@@ -141,7 +138,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List <UserRole> authority = new ArrayList<UserRole>();
+        List<UserRole> authority = new ArrayList<UserRole>();
         authority.add(this.authorities);
         return authority;
     }
